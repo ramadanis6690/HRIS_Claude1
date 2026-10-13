@@ -14,7 +14,7 @@ Sistem kepegawaian internal 20 orang: presensi, cuti, lembur, payroll, JMPD. Pos
 
 ## Alur kerja: ECC saja
 
-Plugin `ecc@ecc` aktif untuk proyek ini (`.claude/settings.json`), dan rules-nya ada di `.claude/rules/ecc/`. Superpowers **tidak** dipakai. Urutannya: `/ecc:plan` → `ecc:tdd-workflow` → `ecc:code-reviewer` (+ `ecc:database-reviewer` untuk SQL, `ecc:security-reviewer` untuk auth/izin/repo/audit/berkas/payroll) → `ecc:verification-loop` sebelum PR. Pemetaan lengkapnya ada di skill `hris-dpjm` §12.
+Plugin `ecc@ecc` aktif untuk proyek ini (`.claude/settings.json`), dan rules-nya ada di `.claude/rules/ecc/`. Superpowers **tidak** dipakai. Urutannya: `/ecc:plan` → `ecc:tdd-workflow` → `ecc:code-reviewer` (+ `ecc:database-reviewer` untuk SQL, `ecc:security-reviewer` untuk auth/izin/repo/audit/berkas/payroll) → `ecc:verification-loop` sebelum PR. Pemetaan lengkapnya ada di skill `hris-dpjm` §13.
 
 ## Bila rules ECC bertentangan dengan proyek, proyek yang menang
 

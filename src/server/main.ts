@@ -132,7 +132,8 @@ async function tanganiUnduhan(req: IncomingMessage, res: ServerResponse, url: UR
   } catch {
     return kirimTeks(res, 401, 'Sesi Anda sudah berakhir. Silakan masuk lagi.');
   }
-  const [, , jenis, id] = url.pathname.split('/');
+  // /api/unduh/<jenis>/<id>
+  const [, , , jenis, id] = url.pathname.split('/');
   try {
     if (jenis === 'berkas' && uuidSah(id)) {
       const b = await berkas.info(id);

@@ -20,12 +20,13 @@ const TAB_RIWAYAT: Partial<Record<Tab, JenisRiwayat>> = {
 };
 
 function tampilNilai(def: DefKolom, v: unknown, master: MasterData | null, d: TDetail): string {
+  if (def.jenis === 'titik_kantor' && !v) return 'Bebas (titik aktif mana pun)';
   if (v === null || v === undefined || v === '') return BELUM_DIISI;
   if (def.jenis === 'ya_tidak') return v ? 'Ya' : 'Tidak';
   if (def.jenis === 'tanggal') return tanggalPanjang(String(v));
   if (def.jenis === 'unit') return d.unit ?? BELUM_DIISI;
   if (def.jenis === 'jabatan') return d.jabatan ?? BELUM_DIISI;
-  if (def.jenis === 'titik_kantor') return master?.titikKantor.find((t) => t.id === v)?.nama ?? 'Bebas';
+  if (def.jenis === 'titik_kantor') return master?.titikKantor.find((t) => t.id === v)?.nama ?? 'Dikunci ke satu titik kantor';
   if (def.kolom === 'status_pegawai') return LABEL_STATUS_PEGAWAI[v as StatusPegawai] ?? String(v);
   if (def.kolom === 'jenis_kelamin') return v === 'L' ? 'Laki-laki' : 'Perempuan';
   return String(v);

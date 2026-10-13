@@ -1,0 +1,10 @@
+[Unit]
+Description=HRIS — hapus foto presensi > 365 hari
+
+[Timer]
+OnCalendar=*-*-* 02:00:00 Asia/Jakarta
+Persistent=true
+Unit=hris-pekerjaan@hapus-foto.service
+
+[Install]
+WantedBy=timers.target

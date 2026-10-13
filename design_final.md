@@ -434,6 +434,8 @@ export async function tulis<T>(
 
 **Tidak ada kode lain yang boleh menjalankan `INSERT`, `UPDATE`, atau `DELETE`.** Tes statis (§11) memindai kode dan gagal bila menemukannya di luar `repo.ts` dan `audit.ts`. Role `hris_app` juga tidak punya hak `DELETE` sama sekali, jadi aturan "tidak ada hapus fisik" ditegakkan basis data, bukan disiplin pemrogram.
 
+**Pengecualian yang disengaja (dibangun 13 Oktober 2026).** Tabel `sesi` dan `log_pemicu`, serta penghitung login di `pengguna` (`gagal_login`, `terkunci_sampai`, `login_terakhir`), ditulis lewat `repo.operasional` **tanpa** Audit Log. Keduanya keadaan operasional, bukan data bisnis, dan `terakhir_aktif` ditulis di setiap panggilan (§5.2), sehingga mengauditnya akan membanjiri rantai tanpa menambah jejak yang berarti. Penulisannya tetap hanya ada di `repo.ts`. Migrasi `003_buang_sesi.sql` memberi `hris_app` hak `DELETE` **hanya** atas `sesi`, supaya pekerjaan terjadwal bisa membuang sesi kedaluwarsa (§5.2, §9). Hak itu tidak berlaku untuk tabel lain mana pun.
+
 ### 7.2 Rantai hash
 
 ```

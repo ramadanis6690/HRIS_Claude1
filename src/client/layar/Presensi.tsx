@@ -242,7 +242,7 @@ export function Presensi() {
                 <div className="jam-besar">{jamWIB(sekarang)}</div>
                 <div className="redup">Jam kerja {h.jamMasuk}–{h.jamPulang}{!h.hariKerja ? ' · hari ini bukan hari kerja' : ''}{!h.wajibPresensi ? ' · Anda tidak wajib presensi' : ''}</div>
                 {h.presensi && (
-                  <div className="kisi" style={{ width: '100%', maxWidth: 420 }}>
+                  <div className="dua-kolom">
                     <div className="ringkas sukses"><div className="angka">{jam(h.presensi.masukPada)}</div><div className="label">Check-in{h.presensi.menitTerlambat ? ` · terlambat ${h.presensi.menitTerlambat} mnt` : ''}</div></div>
                     <div className={`ringkas ${h.presensi.pulangPada ? 'sukses' : ''}`}><div className="angka">{jam(h.presensi.pulangPada)}</div><div className="label">Check-out</div></div>
                   </div>

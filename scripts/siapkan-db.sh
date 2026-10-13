@@ -4,7 +4,7 @@
 # (hris dan hris_uji). Di server ASLI langkah ini dikerjakan IT —
 # lihat docs/KONFIGURASI_SERVER.md.
 #
-# Pemakaian:  sudo -u postgres bash scripts/siapkan-db-lokal.sh
+# Pemakaian:  sudo -u postgres bash scripts/siapkan-db.sh
 #   atau      PGHOST=... PGUSER=postgres bash scripts/siapkan-db-lokal.sh
 #
 # Kata sandi diambil dari variabel lingkungan bila ada, dan dibuat acak bila

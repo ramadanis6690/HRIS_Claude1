@@ -1,0 +1,17 @@
+# Satu pekerjaan terjadwal (design_final.md §9). %i = nama pekerjaan.
+[Unit]
+Description=HRIS — pekerjaan %i
+After=postgresql.service
+
+[Service]
+Type=oneshot
+User=hris
+Group=hris
+WorkingDirectory=/opt/hris
+EnvironmentFile=/etc/hris/env
+ExecStart=/usr/bin/node /opt/hris/dist/server/server/pekerjaan/jalankan.js %i
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/var/lib/hris

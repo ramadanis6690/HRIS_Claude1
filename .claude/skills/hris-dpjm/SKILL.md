@@ -94,6 +94,7 @@ repo.tulis(tabel, operasi: 'tambah' | 'ubah' | 'nonaktifkan', baris, { pelaku, a
 - Satu aksi bisnis yang menulis beberapa baris (persetujuan laporan + hitung ulang pohon JMPD, transisi tahap payroll) berjalan dalam **satu** transaksi. Pohon atau run tidak boleh setengah diperbarui.
 - Rantai hash: `hash_n = SHA-256(hash_(n-1) | no | waktu | pelaku_id | aksi | tabel | baris_id | sebelum | sesudah | alasan)`. `audit_rantai` diperbarui dalam transaksi yang sama.
 - Audit Log tidak pernah diubah atau diarsipkan. Koreksi = baris baru.
+- **Pengecualian:** `sesi`, `log_pemicu`, dan penghitung login di `pengguna` ditulis lewat `repo.operasional` tanpa Audit Log. Migrasi 003 memberi `DELETE` hanya atas `sesi`. Jangan menambah pengecualian lain tanpa mencatatnya di design §7.1.
 
 ## 7. Mesin hitung `core/*` (design §3, §8)
 
@@ -133,7 +134,22 @@ repo.tulis(tabel, operasi: 'tambah' | 'ubah' | 'nonaktifkan', baris, { pelaku, a
 
 UJI dan ASLI harus memakai versi OS, PostgreSQL mayor, dan Node yang sama. Deploy berhenti bila berbeda (NFR-13). UJI tidak pernah memuat data pegawai sungguhan.
 
-## 11. Pola lama yang TIDAK berlaku lagi
+## 11. Yang sudah ada di kode (Fase 1)
+
+| Bagian | Tempat |
+|---|---|
+| Dispatcher + tabel izin | `src/server/api.ts` (`AKSI`, `tulis: true` untuk aksi yang mengubah data) |
+| Tipe aksi bersama | `src/bersama/aksi.ts`; definisi kolom formulir pegawai di `src/bersama/pegawai.ts` |
+| Izin & menu | `src/server/izin.ts` (`menuUntuk`, `atasanDari`, `bisaBaca*`) |
+| Modul | `src/server/modul/*` — presensi, pegawai, pengguna, pengaturan, impor, ecv, beranda, log-audit, sistem |
+| Pekerjaan terjadwal | `src/server/pekerjaan/jalankan.ts`, unit systemd di `deploy/systemd/` |
+| Layar | `src/client/layar/*`, komponen dasar di `src/client/komponen/dasar.tsx` |
+| Tes | `test/core` (murni), `test/statis` (jalur tulis, izin, kredensial), `test/integrasi` (akses per peran, HTTP, audit, presensi, pegawai, pekerjaan) |
+| Server & deploy | `docs/KONFIGURASI_SERVER.md`, `docs/RUNBOOK.md`, `deploy/` |
+
+Aksi baru: tambahkan tipe di `aksi.ts`, baris di `AKSI` (tsc menolak bila lupa), lalu kasus di `test/integrasi/akses.test.ts` — tes itu otomatis memanggil setiap aksi tanpa token, dengan token pegawai biasa, dan dengan token auditor.
+
+## 12. Pola lama yang TIDAK berlaku lagi
 
 Bila ditemukan di dokumen lama, catatan, atau ingatan sesi sebelumnya, abaikan:
 
@@ -157,7 +173,7 @@ Bila ditemukan di dokumen lama, catatan, atau ingatan sesi sebelumnya, abaikan:
 - §10.5 `client/chart.html` → `src/client/Chart.tsx` (§3).
 - Judul kolom "Tab" dan nama PascalCase di §4.2–§4.7 → nama tabel `snake_case`. Isian `(Y/N)` → `boolean`. Bila berbeda, **berkas SQL yang menentukan**.
 
-## 12. Alur kerja: ECC
+## 13. Alur kerja: ECC
 
 Proyek ini memakai **ECC (`ecc@ecc`)** sebagai satu-satunya alur kerja. Superpowers tidak dipakai, supaya tidak ada dua set instruksi alur yang saling bertabrakan.
 

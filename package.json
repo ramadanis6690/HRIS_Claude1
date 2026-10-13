@@ -20,12 +20,14 @@
     "test:watch": "vitest",
     "test:core": "vitest run test/core",
     "test:statis": "vitest run test/statis",
-    "test:akses": "vitest run test/akses test/integrasi",
+    "test:integrasi": "vitest run test/integrasi",
     "migrasi": "tsx scripts/migrasi.ts",
     "isi-contoh": "tsx scripts/isi-contoh.ts",
     "buat-super-admin": "tsx scripts/buat-super-admin.ts",
     "pekerjaan": "tsx src/server/pekerjaan/jalankan.ts",
-    "siapkan-db-lokal": "bash scripts/siapkan-db-lokal.sh"
+    "siapkan-db": "bash scripts/siapkan-db.sh",
+    "deploy:uji": "bash deploy/deploy.sh uji",
+    "deploy:asli": "bash deploy/deploy.sh asli"
   },
   "dependencies": {
     "argon2": "0.45.1",
