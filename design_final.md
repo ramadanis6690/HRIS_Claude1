@@ -932,15 +932,14 @@ Bagian ini mencatat perkakas yang dipakai **membangun** aplikasi, bukan kebutuha
 | Perkakas | Dipakai untuk |
 |---|---|
 | `vitest` | Tes `core/*` dan fixture payroll (§11.1, §11.2) |
-| `security-review` | Telaah keamanan sebelum Fase 1 dipakai dan sebelum Fase 3 |
-| `webapp-testing` | Uji alur layar dengan Playwright |
-| `frontend-design` | Rancangan tampilan baru |
-| `superpowers` | Alur brainstorming, rencana, dan TDD |
-| `hris-dpjm` | **Pola tetap proyek ini** — lihat peringatan di bawah |
+| **ECC** (`ecc@ecc`) | **Satu-satunya alur kerja pengembangan**: rencana, TDD, telaah kode/SQL/keamanan, verifikasi sebelum PR |
+| `hris-dpjm` | **Pola tetap proyek ini**, di `.claude/skills/hris-dpjm/SKILL.md` |
 
-**Peringatan: skill `hris-dpjm` berisi pola yang sudah tidak berlaku.** Isinya masih menyebut Apps Script dan Google Sheets, `repo.tulis` dengan kunci skrip global, `core/*` yang diakhiri `module.exports` bersyarat, dan "daftarkan tabnya di §4". Skill itulah yang dibaca setiap sesi baru sebagai sumber pola proyek ini, jadi selama belum ditulis ulang ia **menyesatkan setiap sesi**. Menulis ulangnya adalah pekerjaan pertama sebelum kode mulai ditulis, dan isinya mengikuti §4.1 (tipe kolom, constraint), §5.3 (menambah aksi), §7.1 (jalur tulis dalam transaksi), serta §10 yang tidak berubah.
+**ECC dipasang 13 Oktober 2026 atas keputusan pemilik**, menggantikan keputusan sebelumnya untuk menunda sampai Fase 1 selesai. Superpowers tidak dipakai, supaya tidak ada dua set instruksi alur yang bertabrakan. ECC aktif di tingkat proyek lewat `.claude/settings.json`, sehingga setiap sesi yang membuka repo ini, di laptop maupun di cloud, mendapat versi yang sama. Rule pack `common`, `typescript`, dan `react` disalin ke `.claude/rules/ecc/`, karena plugin tidak bisa membawa rules. Bila rule ECC bertentangan dengan dokumen ini, dokumen ini yang menang; daftarnya di `CLAUDE.md`.
 
-**Tentang ECC** (`github.com/affaan-m/ecc`): satu kumpulan agent dan skill untuk harness AI — 71 agent, 311 skill, 97 perintah. Ia mengubah cara pengembangan dikerjakan, bukan apa yang dibangun. **Belum dipasang, dan tidak dipasang sekarang.** Sebabnya: enam skill di atas sudah menutup TDD, telaah keamanan, pengujian web, dan rancangan tampilan; sebagian besar 311 skill ECC adalah paket framework yang tidak dipakai di sini (Django, Laravel, Spring Boot, Rails); dan memasangnya menambah beban konteks di setiap sesi. Nilainya yang nyata ada pada agent dan memory-nya, dan itu baru bisa dinilai jujur setelah stack ini berdiri dan ada kode yang dikerjakan. Keputusannya ditinjau ulang setelah Fase 1 selesai.
+**Harga yang diterima:** sekitar 47.000 token konteks di setiap sesi (daftar 408 skill dan 71 agent), ditambah hook ECC profil `standard` yang berjalan di setiap pemanggilan alat. Bila beban itu terasa, pilihannya adalah menurunkan profil hook ke `minimal`, atau berpindah ke pemasangan selektif ECC yang hanya membawa skill yang dipakai.
+
+**Skill `hris-dpjm` ditulis ulang pada tanggal yang sama** untuk stack PostgreSQL + Node, dan kini disimpan di repo. Versi lama yang masih menyebut Apps Script, Sheets, dan kunci skrip global sudah tidak dipakai. Isinya mengikuti §4.1 (tipe kolom, constraint), §5.3 (menambah aksi), §7.1 (jalur tulis dalam transaksi), dan §10.
 
 ---
 

@@ -1,0 +1,13 @@
+Rule pack ECC (Everything Claude Code), disalin apa adanya dari:
+  https://github.com/affaan-m/ECC  versi 2.2.3, commit b92f181b3b748d1abbc2afd94af6aa7d8c8fca29
+  Lisensi MIT, lihat LICENSE di folder ini.
+
+Yang disalin: common, typescript, react. Plugin ECC tidak bisa membawa rules,
+jadi rules dipasang manual di sini (README ECC, bagian "Claude Code details").
+web/ sengaja tidak disalin: tampilan diatur design_final.md §10.
+
+Bila rule di sini bertentangan dengan dokumen proyek, dokumen proyek yang
+menang. Daftar pertentangannya ada di CLAUDE.md.
+
+Memperbarui: salin ulang ketiga folder dari rilis ECC yang baru, lalu
+perbarui versi dan commit di atas.
