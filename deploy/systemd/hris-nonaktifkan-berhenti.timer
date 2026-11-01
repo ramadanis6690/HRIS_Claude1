@@ -1,0 +1,10 @@
+[Unit]
+Description=HRIS — nonaktifkan pegawai berhenti
+
+[Timer]
+OnCalendar=*-*-* 02:30:00 Asia/Jakarta
+Persistent=true
+Unit=hris-pekerjaan@nonaktifkan-berhenti.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "lib": ["ES2023"],
+    "rootDir": "src",
+    "outDir": "dist/server",
+    "sourceMap": true
+  },
+  "include": ["src/server", "src/core", "src/bersama"]
+}

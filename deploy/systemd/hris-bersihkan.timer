@@ -1,0 +1,10 @@
+[Unit]
+Description=HRIS — bersihkan ekspor dan sesi lama
+
+[Timer]
+OnCalendar=*-*-* 03:00:00 Asia/Jakarta
+Persistent=true
+Unit=hris-pekerjaan@bersihkan.service
+
+[Install]
+WantedBy=timers.target

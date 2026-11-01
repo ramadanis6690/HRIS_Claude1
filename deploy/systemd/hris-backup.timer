@@ -1,0 +1,10 @@
+[Unit]
+Description=HRIS — backup harian ke luar mesin
+
+[Timer]
+OnCalendar=*-*-* 01:00:00 Asia/Jakarta
+Persistent=true
+Unit=hris-backup.service
+
+[Install]
+WantedBy=timers.target

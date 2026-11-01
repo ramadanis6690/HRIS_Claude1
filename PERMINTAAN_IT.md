@@ -61,10 +61,10 @@ Docker **tidak diperlukan**. Aplikasinya satu proses Node dan satu PostgreSQL, k
 | `listen_addresses` | **`localhost` saja** | Basis data **tidak boleh** bisa dihubungi dari jaringan, termasuk dari dalam kantor. Satu-satunya yang bicara dengannya adalah proses Node di mesin yang sama |
 | Basis data | `hris` dan `hris_uji` | |
 | Role aplikasi | `hris_app`, dengan kata sandi acak panjang | Aplikasi **tidak pernah** tersambung sebagai pemilik basis data. Hak `DELETE` dicabut dari role ini, dan Audit Log tidak bisa diubahnya — bahkan bila ada bug di kode |
-| Pemilik basis data | role terpisah, kata sandinya dipegang IT | Dipakai hanya untuk migrasi skema |
+| Pemilik basis data | role terpisah (`hris_pemilik`), kata sandinya dipegang IT, dengan `CREATEROLE` dan `ADMIN` atas `hris_app` | Dipakai hanya untuk migrasi skema. Kedua hak itu diperlukan karena migrasi pertama mengatur zona waktu role aplikasi (`ALTER ROLE hris_app SET timezone`), yang ditolak PostgreSQL 16 tanpa keduanya. Skrip `scripts/siapkan-db.sh` memasangnya |
 | `log_min_duration_statement` | `1000` | Kueri yang lebih dari 1 detik dicatat, supaya pelambatan terlihat sebelum dikeluhkan orang |
 
-Skemanya ada di berkas `skema/001_skema_awal.sql` dalam repositori aplikasi. Perlu dijalankan sekali sebagai pemilik basis data.
+Skemanya ada di folder `skema/` dalam repositori aplikasi (`001_skema_awal.sql` dan migrasi berikutnya), dijalankan dengan `npm run migrasi` sebagai pemilik basis data. Langkah lengkapnya ada di `docs/KONFIGURASI_SERVER.md`.
 
 ---
 
@@ -107,7 +107,7 @@ Skemanya ada di berkas `skema/001_skema_awal.sql` dalam repositori aplikasi. Per
 
 ## 6. Layanan dan pekerjaan terjadwal
 
-**[WAJIB]** Izin membuat satu layanan systemd (`hris.service`) dan **delapan** systemd timer.
+**[WAJIB]** Izin membuat satu layanan systemd (`hris.service`) dan **delapan** systemd timer. Berkasnya ada di `deploy/systemd/`; enam terpasang di Fase 1, dua sisanya (06.15 dan 07.00) menyusul bersama modulnya.
 
 Pekerjaannya ringan — ini kantor 20 orang, bukan ribuan:
 

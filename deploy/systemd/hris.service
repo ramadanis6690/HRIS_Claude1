@@ -1,0 +1,29 @@
+# Satu proses Node, berjalan sebagai pengguna `hris` (design_final.md §1).
+[Unit]
+Description=HRIS Dana Pensiun Jasa Marga
+After=network.target postgresql.service
+Wants=postgresql.service
+
+[Service]
+Type=simple
+User=hris
+Group=hris
+WorkingDirectory=/opt/hris
+EnvironmentFile=/etc/hris/env
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/node /opt/hris/dist/server/server/main.js
+Restart=on-failure
+RestartSec=5
+# Pengerasan: proses hanya boleh menulis ke folder berkas.
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/var/lib/hris
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+
+[Install]
+WantedBy=multi-user.target

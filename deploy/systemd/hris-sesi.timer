@@ -1,0 +1,10 @@
+[Unit]
+Description=HRIS — buang sesi kedaluwarsa
+
+[Timer]
+OnCalendar=hourly
+Persistent=true
+Unit=hris-pekerjaan@sesi.service
+
+[Install]
+WantedBy=timers.target

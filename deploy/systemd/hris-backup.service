@@ -1,0 +1,9 @@
+# Backup berjalan sebagai root: pg_dump lewat pengguna postgres, berkas dibaca dari /var/lib/hris.
+[Unit]
+Description=HRIS — backup harian
+After=postgresql.service
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/hris/env
+ExecStart=/bin/bash /opt/hris/deploy/backup.sh
